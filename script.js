@@ -27,7 +27,32 @@ const showDate = () => {
         month: 'long'
     });
     DATE.innerHTML = `${format}`;
-}
+};
+// Add Name
+const clearField = e => {
+    e.target.innerText = '';
+};
+const getName = () => {
+    if (localStorage.getItem('name')) {  
+        NAME.textContent = localStorage.getItem('name');
+    } else {
+        NAME.textContent = '[Enter Name]';
+    }
+};
+const enterBlur = e => {
+    if (e.code === 'Enter') {
+        e.target.blur();
+    }
+};
+const blurField = e => {
+    e.target.innerText ? 
+        localStorage.setItem('name', e.target.innerText) :
+        getName();
+};
+NAME.addEventListener('click', clearField);
+NAME.addEventListener('blur', blurField);
+NAME.addEventListener('keydown', enterBlur);
+
 
 document.addEventListener('DOMContentLoaded', () => {
     showTime();
