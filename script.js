@@ -3,7 +3,7 @@ const TIME = document.querySelector('.time'),
   FOCUS = document.querySelector('.focus'),
   NAME = document.querySelector('.name'),
   NEXT = document.querySelector('.next'),
-  greeting = document.querySelector('.greeting');
+  GREETING = document.querySelector('.greeting');
 
 // Return Hours
 const getHour = new Date().getHours(); 
@@ -38,7 +38,7 @@ const dayTime = hour => {
            hour < 18 ? 'afternoon' : 'evening';
 }
 const showGreeting = () => {
-    greeting.textContent = `Good ${dayTime(getHour)}, `;
+    GREETING.textContent = `Good ${dayTime(getHour)}, `;
 };
 // Add Name
 const clearField = e => {
@@ -56,15 +56,30 @@ const enterBlur = e => {
         e.target.blur();
     }
 };
-const blurField = e => {
-    e.target.innerText ? 
+const blurName = e => {
+    e.target.innerText.trim() ? 
         localStorage.setItem('name', e.target.innerText) :
         getName();
 };
 NAME.addEventListener('click', clearField);
-NAME.addEventListener('blur', blurField);
+NAME.addEventListener('blur', blurName);
 NAME.addEventListener('keydown', enterBlur);
-
+// Add Focus
+const getFocus = () => {
+    if (localStorage.getItem('focus')) {  
+        FOCUS.textContent = localStorage.getItem('focus');
+    } else {
+        FOCUS.textContent = '[Enter Focus]';
+    }
+};
+const blurFocus = e => {
+    e.target.innerText.trim() ? 
+        localStorage.setItem('focus', e.target.innerText) :
+        getFocus();
+};
+FOCUS.addEventListener('click', clearField);
+FOCUS.addEventListener('blur', blurFocus);
+FOCUS.addEventListener('keydown', enterBlur);
 // Pick a random num
 const random = (min, max) => {
     return Math.floor(min + Math.random() * (max + 1 - min));
@@ -107,5 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
     showDate();
     showGreeting();
     getName();
+    getFocus();
     changeBG(getHour);
 });
