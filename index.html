@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,12 +10,25 @@
     <link rel="stylesheet" href="./css/style.css">
     <title>Momentum</title>
 </head>
+
 <body>
+    <div class="weather__wrapper">
+        <p class="city" contenteditable="true"></p>
+        <div class="weather none">
+            <i class="weather-icon owf"></i>
+            <span class="temperature"></span>
+            <p class="wind"></p>
+            <p class="humidity"></p>
+        </div>
+        <div class="weather__error none">
+            <span>Check the existance of this city</span>
+        </div>
+    </div>
     <time class="date"></time>
     <time class="time"></time>
     <h1>
-      <span class="greeting"></span>
-      <span class="name" contenteditable="true"></span>
+        <span class="greeting"></span>
+        <span class="name" contenteditable="true"></span>
     </h1>
     <h2>What Is Your Focus For Today?</h2>
     <h2 class="focus" contenteditable="true"></h2>
@@ -22,12 +36,13 @@
         <button class="next"></button>
     </div>
     <div class="quote__wrapper">
-      <blockquote class="quote"></blockquote>
-      <div class="quote__floor">
-          <button button class="quote__btn">Next</button>
-          <span class="quote__author"></span>
-      </div>
+        <blockquote class="quote"></blockquote>
+        <div class="quote__floor">
+            <button button class="quote__btn">Next</button>
+            <span class="quote__author"></span>
+        </div>
     </div>
     <script src="script.js"></script>
-  </body>
+</body>
+
 </html>

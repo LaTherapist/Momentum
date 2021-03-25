@@ -25,7 +25,7 @@ h1 {
 }
 h2 {
     margin-bottom: 0.5rem;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 .time {
     font-size: 8rem;
@@ -59,26 +59,24 @@ h2 {
     background-color: var(--color);
     content: "";
   }
-  .next::before {
+.next::before {
     top: 1.3rem;
     transform: rotate(45deg);
-  }
-  .next::after {
+}
+.next::after {
     top: 0rem;
     transform: rotate(-45deg);
-  }
-  .next:hover {
-      transform: scale(1.2);
-  }
-  .next:focus {
-      outline: none;
-  }
-
-/* ---------------- */
-
+}
+.next:hover {
+    transform: scale(1.2);
+}
+.next:focus {
+    outline: none;
+}
+/* Quote */
 .quote__wrapper {
-    position: absolute;
-    bottom: 2%;
+    position: relative;
+    top: 5.5rem;
     padding: 1rem 2rem;
     border-radius: .6rem;
     background-color: rgba(173, 173, 173, .4);
@@ -102,4 +100,39 @@ h2 {
 .quote__author {
     font-size: 0.9rem;
     font-style: italic;
+}
+/* Weather */
+.weather__wrapper {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: .5rem 1rem;
+    border-radius: .6rem;
+    text-align: left;
+    background-color: rgba(173, 173, 173, .4);
+}
+.city {
+    font-size: 1.2rem;
+    padding-bottom: .1rem;
+}
+.weather-icon {
+    font-size: 1.2rem;
+    vertical-align: text-bottom;
+}
+.temperature {
+    font-size: 1.2rem;
+}
+.wind {
+    margin-top: .5rem;
+    font-style: italic;
+}
+.humidity {
+    font-style: italic;
+}
+.weather__error {
+    margin-top: .3rem;
+    font-style: italic;
+}
+.none {
+    display: none;
 }

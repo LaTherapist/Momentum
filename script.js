@@ -6,8 +6,15 @@ const TIME = document.querySelector('.time'),
   GREETING = document.querySelector('.greeting'),
   QUOTE = document.querySelector('.quote'),
   quoteBTN = document.querySelector('.quote__btn'),
-  quoteAuthor = document.querySelector('.quote__author');
-  
+  quoteAuthor = document.querySelector('.quote__author'),
+  WEATHER = document.querySelector('.weather'),
+  CITY = document.querySelector('.city'),
+  TEMPERATURE = document.querySelector('.temperature'),
+  HUMIDITY = document.querySelector('.humidity'),
+  WIND = document.querySelector('.wind'),
+  weatherIcon = document.querySelector('.weather-icon'),
+  weatherError = document.querySelector('.weather__error');
+
 // Return Hours
 const getHour = new Date().getHours(); 
 // Add Time
@@ -125,8 +132,8 @@ NEXT.addEventListener('click', nextBG);
 // Add Quote
 const loadQuote = async () => {
     let url = 'https://type.fit/api/quotes';
-    let result = await fetch(url);
-    let data = await result.json();
+    let response = await fetch(url);
+    let data = await response.json();
 
     localStorage.setItem('quotes', JSON.stringify(data));
 };
@@ -143,6 +150,43 @@ const getQuote = async () => {
     }
 };
 quoteBTN.addEventListener('click', getQuote);
+// Add Weather
+const getWeather = async () => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${CITY.innerText}&lang=en&appid=87d68a24df5e20220cf5d15c22cdeaa2&units=metric`;
+    let response = await fetch(url);
+    if (response.ok) {
+        WEATHER.classList.remove('none');
+        weatherError.classList.add('none');
+        let data = await response.json();
+
+        weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+        TEMPERATURE.textContent = `${data.main.temp}°C`;
+        HUMIDITY.textContent = `Humidity: ${data.main.humidity}%`;
+        WIND.textContent = `Wind speed: ${data.wind.speed} m/s`;
+    } else {
+        WEATHER.classList.add('none');
+        weatherError.classList.remove('none');
+    }
+};
+const getCity = () => {
+    if (localStorage.getItem('city')) {  
+        CITY.textContent = localStorage.getItem('city');
+        getWeather();
+    } else {
+        CITY.textContent = '[Enter City]';
+    }
+};
+const blurCity = e => {
+    if (e.target.innerText.trim()) {
+        localStorage.setItem('city', e.target.innerText);
+        getWeather();
+    } else {
+        getCity();
+    }       
+};
+CITY.addEventListener('click', clearField);
+CITY.addEventListener('blur', blurCity);
+CITY.addEventListener('keydown', enterBlur);
 
 document.addEventListener('DOMContentLoaded', () => {
     showTime();
@@ -152,4 +196,5 @@ document.addEventListener('DOMContentLoaded', () => {
     getFocus();
     changeBG(getHour);
     getQuote();
+    getCity();
 });
